@@ -1,0 +1,46 @@
+{% load static %}
+<html>
+<title>{{title}}</title>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="icon" href="{% static 'images/favicon.gif' %}" sizes="16x16" type="image/png">
+</head>
+
+<body>
+<div class="col-sm-12">
+<div class="col-sm-2"></div>
+<div class="col-sm-8"><br>
+ <form action="//" method="post">
+    {% csrf_token %}
+	
+	{{ form.non_field_errors }}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
+	
+    <table border="1">
+    {% for field in form.visible_fields %}
+      <tr>
+        <th>{{ field.label_tag }}</th>
+        <td>
+          {{ field.errors }}
+          {{ field }}
+          {{ field.help_text }}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <button type="submit">Submit</button>
+</form><br><br>
+  <a href="{% url 'index' %}">home</a>
+</div>
+<div class="col-sm-2"></div>
+</div>
+</body>
+
+</html>
